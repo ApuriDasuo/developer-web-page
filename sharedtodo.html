@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SharedTo-Do | アプリだすお</title>
+    <meta
+      name="description"
+      content="SharedTo-Do（みてみてToDo）の概要とプライバシーポリシー。App Store / Google Play の Privacy Policy URL として利用できるページです。"
+    />
+    <style>
+      :root {
+        --bg: #f3f7fb;
+        --panel: #ffffff;
+        --panel-soft: #eef4ff;
+        --primary: #2f6fed;
+        --primary-dark: #184eb6;
+        --text: #1d2736;
+        --muted: #58677d;
+        --border: #dfe7f5;
+        --shadow: 0 18px 40px rgba(24, 40, 73, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: linear-gradient(180deg, #f8fbff 0%, #eef3f9 100%);
+        color: var(--text);
+        line-height: 1.7;
+      }
+
+      a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      a:hover { text-decoration: underline; }
+
+      .container {
+        width: min(1100px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(255, 255, 255, 0.82);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(223, 231, 245, 0.9);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 72px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #78b9ff 0%, var(--primary) 100%);
+        position: relative;
+        box-shadow: 0 10px 24px rgba(47, 111, 237, 0.25);
+        overflow: hidden;
+      }
+
+      .brand-mark::before,
+      .brand-mark::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.92);
+      }
+
+      .brand-mark::before {
+        width: 14px;
+        height: 14px;
+        top: 8px;
+        left: 8px;
+      }
+
+      .brand-mark::after {
+        width: 17px;
+        height: 17px;
+        right: 5px;
+        bottom: 4px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        font-size: 0.96rem;
+        color: var(--muted);
+      }
+
+      .nav-links a {
+        color: var(--muted);
+      }
+
+      .nav-links .primary-link {
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      main {
+        padding: 52px 0 72px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 32px;
+        align-items: center;
+        margin-bottom: 28px;
+      }
+
+      .hero h1 {
+        margin: 0 0 16px;
+        font-size: clamp(2.3rem, 5vw, 4rem);
+        line-height: 1.08;
+        letter-spacing: -0.05em;
+      }
+
+      .hero p {
+        margin: 0 0 22px;
+        color: var(--muted);
+        font-size: 1.06rem;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 18px;
+        border-radius: 12px;
+        font-weight: 700;
+        border: 1px solid var(--border);
+      }
+
+      .button.primary {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: #fff;
+        border-color: transparent;
+      }
+
+      .button.secondary {
+        background: var(--panel);
+        color: var(--text);
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+        padding: 22px;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 18px;
+      }
+
+      .feature {
+        background: var(--panel-soft);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 16px;
+      }
+
+      .feature h3 {
+        margin: 0 0 10px;
+        font-size: 1.08rem;
+      }
+
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .policy {
+        margin-top: 28px;
+        background: rgba(255, 255, 255, 0.82);
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+        padding: 28px;
+      }
+
+      .policy h2 {
+        margin-top: 0;
+        margin-bottom: 16px;
+        font-size: clamp(1.7rem, 3vw, 2.3rem);
+      }
+
+      .policy h3 {
+        margin-top: 28px;
+        margin-bottom: 10px;
+        font-size: 1.25rem;
+      }
+
+      .policy p,
+      .policy li {
+        color: var(--text);
+      }
+
+      .policy ul {
+        padding-left: 20px;
+        margin: 12px 0;
+      }
+
+      .policy .updated {
+        font-weight: 700;
+        margin: 8px 0 16px;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      footer {
+        margin-top: 40px;
+        padding: 12px 0 44px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 860px) {
+        .hero,
+        .feature-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav-links {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand" aria-label="Developer brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>アプリだすお</span>
+        </div>
+
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="index.html">Top</a>
+          <a href="#policy">Privacy</a>
+          <a href="https://apuridasuo.hatenablog.com/" target="_blank" rel="noreferrer" class="primary-link">Blog</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section class="hero">
+          <div>
+            <h1>SharedTo-Do（みてみてToDo）</h1>
+            <p>
+              家族や友人、仕事仲間と共有しながら、日々のやることを整理・管理できるアプリです。
+              シンプルな操作性と、共同作業に必要な共有体験を重視しています。
+            </p>
+
+            <div class="cta-row">
+              <a class="button primary" href="#policy">Privacy Policy</a>
+              <a class="button secondary" href="index.html">Developer Top</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="feature-grid">
+              <div class="feature">
+                <h3>シンプル</h3>
+                <p>今日やることをすぐに追加して、見返しやすく整理できます。</p>
+              </div>
+              <div class="feature">
+                <h3>共有</h3>
+                <p>リストを共有し、参加者と進捗や予定を確認しながら使えます。</p>
+              </div>
+              <div class="feature">
+                <h3>通知</h3>
+                <p>更新の知らせを受け取り、共同作業の更新漏れを防ぎます。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="policy" id="policy">
+          <h2>みてみてTODO プライバシーポリシー</h2>
+          <p>
+            あぷりだすお（apuridasuo、以下「運営者」）は、提供するアプリにおける利用者情報の取り扱いを、以下のとおり定めます。
+            「みてみて TODO」（英語名：Shared ToDo、以下「本アプリ」）のデータ保存・共有・通知については、本ページの該当項目が適用されます。
+          </p>
+          <p class="updated">最終更新日：2026年9月25日</p>
+
+          <h3>1. 広告配信について</h3>
+          <p>
+            運営者が提供するアプリのうち、広告を表示するアプリでは、Google の AdMob を利用します。
+            広告 SDK は、IP アドレス、端末・広告に関する識別子、広告やアプリの操作情報、診断情報などを取得・送信する場合があります。
+            これらは広告配信、効果測定、不正利用防止などに利用されます。
+          </p>
+          <p>
+            本アプリでは Google User Messaging Platform（UMP）を利用して広告に関する同意情報を確認し、必要な場合に同意画面やプライバシー設定の入口を表示します。
+            表示される場合は、その画面から選択を変更できます。
+          </p>
+          <p>
+            Google による情報の取り扱いは、以下をご確認ください。<br />
+            - <a href="https://policies.google.com/privacy?hl=ja" target="_blank" rel="noreferrer">Google プライバシーポリシー</a><br />
+            - <a href="https://policies.google.com/technologies/ads?hl=ja" target="_blank" rel="noreferrer">Google 広告に関するポリシーと仕組み</a>
+          </p>
+
+          <h3>2. みてみて TODO で取り扱う情報と利用目的</h3>
+          <p>本アプリでは、TODO の保存、端末間の同期、リストの共有、更新通知、不正利用防止のため、次の情報を取り扱います。</p>
+          <ul>
+            <li><strong>利用者を識別する情報：</strong> Firebase Authentication が発行するユーザー ID。</li>
+            <li><strong>入力・編集した情報：</strong> TODO 本文、リスト名、完了状態、表示順、削除状態、作成・更新時刻、更新した利用者を識別する情報。</li>
+            <li><strong>共有に関する情報：</strong> リストへの参加状況、参加時刻、共有用の合言葉とその照合情報、参加操作の回数等。</li>
+            <li><strong>通知に関する情報：</strong> 通知先端末を識別する Firebase Installation ID、端末の OS 種別、通知の許可・設定状態、通知処理の履歴。</li>
+            <li><strong>動作・通信に関する情報：</strong> 同期に必要な情報、エラーや処理結果のログ等。</li>
+          </ul>
+          <p>運営者は、問い合わせを受けた場合、利用者が連絡時に提供した連絡先や内容を、問い合わせへの対応に利用します。</p>
+
+          <h3>3. データの保存と共有</h3>
+          <p>
+            本アプリは Google の Firebase Authentication、Cloud Firestore、Cloud Functions for Firebase、Firebase Cloud Messaging 等を利用し、前項の情報をサーバーへ送信・保存・処理します。
+            また、オフライン利用や設定の保持のため、一部の情報を端末内に保存します。
+          </p>
+          <p>
+            同じ共有リストに参加した利用者は、そのリストの TODO 本文、リスト名、完了状態等を閲覧・編集できます。
+            合言葉を知っている人は、参加が許可されている間、そのリストへ参加できるため、合言葉の共有先にご注意ください。
+          </p>
+          <p>
+            本アプリは、TODO 本文やリスト名を広告のターゲティング情報として AdMob へ渡す処理を行いません。
+            広告 SDK による情報の取得・送信は「1. 広告配信について」のとおりです。
+          </p>
+          <p>
+            外部サービスによる情報の処理・保存は、各サービスの利用条件、設定およびプライバシーポリシーに従います。
+          </p>
+          <p>
+            - <a href="https://firebase.google.com/support/privacy?hl=ja" target="_blank" rel="noreferrer">Firebase のプライバシーとセキュリティ</a><br />
+            - <a href="https://policies.google.com/privacy?hl=ja" target="_blank" rel="noreferrer">Google プライバシーポリシー</a>
+          </p>
+
+          <h3>4. Push 通知について</h3>
+          <p>通知を有効にした場合、共有リストの更新を知らせるために、Firebase Cloud Messaging および OS の通知配信サービスを利用します。</p>
+          <p>
+            更新通知には、リスト名、変更の種類や件数などが表示されます。TODO 本文そのものは更新通知に含めません。
+            端末の設定によっては、通知がロック画面にも表示されます。
+          </p>
+          <p>
+            通知は、本アプリの通知設定、リストごとの通知設定、または端末の OS 設定から停止できます。
+            通知の停止は、共有データや過去の登録情報の完全削除を意味しません。
+          </p>
+
+          <h3>5. 保存期間と削除について</h3>
+          <p>
+            共有リストの情報は、リストの利用・同期・共有を提供する間、サーバーに保存します。
+            アプリで TODO を削除した場合、通常の一覧からは表示されなくなりますが、取り消しや同期に使う削除済みデータがサーバーに残る場合があります。
+          </p>
+          <p>
+            リストから退出すると、その利用者の参加情報とタブ情報を削除します。
+            他の参加者がいるリストとその TODO は引き続き保存されます。
+            全員が退出したリストは削除状態となり、30 日を経過したものがサーバーの定期削除処理の対象になります。
+          </p>
+          <p>
+            アプリのアンインストールや、端末からタブを削除する操作だけでは、サーバー上のすべてのデータが削除されるわけではありません。
+            利用者に関するデータの確認・削除を希望する場合は、下記の問い合わせ先へご連絡ください。
+          </p>
+          <p>
+            お問い合わせ：<a href="mailto:support@sharedtodo.app">support@sharedtodo.app</a>
+          </p>
+
+          <h3>6. 情報の保護</h3>
+          <p>
+            本アプリと利用するサービスでは、通信の暗号化やアクセス権限の制御を利用し、情報の保護を図ります。
+            共有リストの内容は他の参加者にも表示されるため、共有したくない情報の入力にはご注意ください。
+          </p>
+
+          <h3>7. お問い合わせ</h3>
+          <p>
+            運営者：あぷりだすお（apuridasuo）<br />
+            お問い合わせ先：<a href="mailto:support@sharedtodo.app">support@sharedtodo.app</a>
+          </p>
+
+          <h3>8. 本ポリシーの変更</h3>
+          <p>
+            アプリの機能や情報の取り扱いの変更に応じて、本ポリシーを更新することがあります。
+            変更後の内容と最終更新日は、このページに掲載します。
+          </p>
+
+          <h3>English Version</h3>
+          <p>
+            Apuridasuo (apuridasuo, the “Developer”) describes below how information is handled in the Developer’s apps.
+            The sections about data storage, sharing, and notifications for “みてみて TODO” (“Shared ToDo,” the “App”) apply to that App.
+          </p>
+          <p><strong>Last updated: September 25, 2026</strong></p>
+          <p>
+            The App uses Google AdMob for advertising. The advertising SDK may collect and transmit information such as IP addresses,
+            device and advertising identifiers, interactions with ads or the app, and diagnostic information. This information is used for advertising,
+            measurement, and fraud prevention. The App also uses Google User Messaging Platform to display consent choices when required.
+          </p>
+          <p>
+            The App handles task text, list names, completion state, ordering, creation and update times, user identifiers, sharing information,
+            notification records, and operational logs to store tasks, synchronize data, share lists, deliver notifications, and prevent misuse.
+            The App does not pass task text or list names to AdMob as advertising targeting information.
+          </p>
+          <p>
+            If you have privacy questions or would like to request information deletion or review, please contact<br />
+            <a href="mailto:support@sharedtodo.app">support@sharedtodo.app</a>
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="container">
+      © 2026 アプリだすお
+    </footer>
+  </body>
+</html>
