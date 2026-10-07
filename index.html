@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>アプリだすお | Developer</title>
+	<meta name="description" content="アプリだすおの開発者紹介ページ。今後のアプリも同じデベロッパーURLで公開し、各アプリはページ内で切り替えて案内します。" />
+	<style>
+		:root {
+			--bg: #f3f7fb;
+			--panel: #ffffff;
+			--panel-soft: #edf4ff;
+			--primary: #2f6fed;
+			--primary-dark: #184eb6;
+			--text: #1d2736;
+			--muted: #58677d;
+			--border: #dfe7f5;
+			--shadow: 0 18px 40px rgba(24, 40, 73, 0.08);
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			margin: 0;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			background: linear-gradient(180deg, #f8fbff 0%, #eef3f9 100%);
+			color: var(--text);
+			line-height: 1.7;
+		}
+
+		a {
+			color: var(--primary);
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		.container {
+			width: min(1120px, calc(100% - 32px));
+			margin: 0 auto;
+		}
+
+		header {
+			position: sticky;
+			top: 0;
+			z-index: 20;
+			background: rgba(255, 255, 255, 0.82);
+			backdrop-filter: blur(8px);
+			border-bottom: 1px solid rgba(223, 231, 245, 0.9);
+		}
+
+		.nav {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			min-height: 72px;
+		}
+
+		.brand {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			font-weight: 700;
+			font-size: 1.06rem;
+		}
+
+		.brand-mark {
+			width: 34px;
+			height: 34px;
+			border-radius: 10px;
+			background: linear-gradient(135deg, #78b9ff 0%, var(--primary) 100%);
+			position: relative;
+			box-shadow: 0 10px 24px rgba(47, 111, 237, 0.25);
+			overflow: hidden;
+		}
+
+		.brand-mark::before,
+		.brand-mark::after {
+			content: "";
+			position: absolute;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.92);
+		}
+
+		.brand-mark::before {
+			width: 14px;
+			height: 14px;
+			top: 8px;
+			left: 8px;
+		}
+
+		.brand-mark::after {
+			width: 17px;
+			height: 17px;
+			right: 5px;
+			bottom: 4px;
+		}
+
+		.nav-links {
+			display: flex;
+			align-items: center;
+			gap: 24px;
+			font-size: 0.96rem;
+			color: var(--muted);
+		}
+
+		.nav-links a {
+			color: var(--muted);
+		}
+
+		.nav-links .primary-link {
+			color: var(--primary);
+			font-weight: 700;
+		}
+
+		main {
+			padding: 56px 0 80px;
+		}
+
+		.hero {
+			display: grid;
+			grid-template-columns: 1.2fr 0.8fr;
+			gap: 32px;
+			align-items: center;
+			padding: 16px 0 12px;
+		}
+
+		.hero h1 {
+			margin: 0 0 18px;
+			font-size: clamp(2.4rem, 5vw, 4rem);
+			line-height: 1.08;
+			letter-spacing: -0.05em;
+		}
+
+		.hero p {
+			margin: 0 0 26px;
+			max-width: 620px;
+			color: var(--muted);
+			font-size: 1.08rem;
+		}
+
+		.cta-row {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 14px;
+			margin-bottom: 22px;
+		}
+
+		.button {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 52px;
+			padding: 0 22px;
+			border-radius: 14px;
+			font-weight: 700;
+			transition: transform 0.2s ease;
+		}
+
+		.button:hover {
+			transform: translateY(-1px);
+			text-decoration: none;
+		}
+
+		.button-primary {
+			background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+			color: #fff;
+			box-shadow: 0 12px 30px rgba(47, 111, 237, 0.26);
+		}
+
+		.button-secondary {
+			background: var(--panel);
+			border: 1px solid var(--border);
+			color: var(--text);
+		}
+
+		.badge-row {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+
+		.badge {
+			border: 1px solid var(--border);
+			background: rgba(255, 255, 255, 0.7);
+			border-radius: 999px;
+			padding: 8px 12px;
+			font-size: 0.8rem;
+			color: var(--muted);
+		}
+
+		.developer-card {
+			background: linear-gradient(180deg, #ffffff 0%, #f5f9ff 100%);
+			border: 1px solid var(--border);
+			border-radius: 26px;
+			box-shadow: var(--shadow);
+			padding: 22px;
+		}
+
+		.profile {
+			display: flex;
+			align-items: center;
+			gap: 14px;
+			margin-bottom: 18px;
+		}
+
+		.avatar {
+			width: 62px;
+			height: 62px;
+			border-radius: 18px;
+			background: linear-gradient(135deg, #7bb7ff 0%, var(--primary) 100%);
+			display: grid;
+			place-items: center;
+			color: #fff;
+			font-size: 1.4rem;
+			font-weight: 700;
+		}
+
+		.profile h2 {
+			margin: 0;
+			font-size: 1.2rem;
+		}
+
+		.profile p {
+			margin: 2px 0 0;
+			color: var(--muted);
+			font-size: 0.95rem;
+		}
+
+		.developer-card ul {
+			margin: 0;
+			padding-left: 18px;
+			color: var(--muted);
+		}
+
+		.developer-card li+li {
+			margin-top: 10px;
+		}
+
+		.section {
+			margin-top: 30px;
+		}
+
+		.section-header {
+			display: flex;
+			align-items: end;
+			justify-content: space-between;
+			gap: 16px;
+			margin-bottom: 18px;
+		}
+
+		.section-header h2 {
+			margin: 0;
+			font-size: clamp(1.5rem, 3vw, 2.2rem);
+		}
+
+		.section-header p {
+			margin: 0;
+			color: var(--muted);
+		}
+
+		.card-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 20px;
+		}
+
+		.app-card {
+			display: block;
+			border: 1px solid var(--border);
+			border-radius: 22px;
+			background: rgba(255, 255, 255, 0.82);
+			box-shadow: var(--shadow);
+			padding: 22px;
+			transition: transform 0.2s ease, border-color 0.2s ease;
+		}
+
+		.app-card:hover {
+			transform: translateY(-2px);
+			text-decoration: none;
+			border-color: rgba(47, 111, 237, 0.35);
+		}
+
+		.app-tag {
+			display: inline-block;
+			background: var(--panel-soft);
+			border: 1px solid rgba(47, 111, 237, 0.12);
+			color: var(--primary);
+			border-radius: 999px;
+			padding: 6px 10px;
+			font-size: 0.76rem;
+			font-weight: 700;
+			margin-bottom: 12px;
+		}
+
+		.app-card h3 {
+			margin: 0 0 10px;
+			font-size: 1.4rem;
+		}
+
+		.app-card p {
+			margin: 0;
+			color: var(--muted);
+		}
+
+		.app-detail {
+			margin-top: 36px;
+			background: rgba(255, 255, 255, 0.8);
+			border: 1px solid var(--border);
+			border-radius: 22px;
+			box-shadow: var(--shadow);
+			padding: 28px;
+		}
+
+		.app-detail h3 {
+			margin-top: 0;
+			margin-bottom: 10px;
+			font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+		}
+
+		.app-detail p {
+			color: var(--muted);
+		}
+
+		.feature-list {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 16px;
+			margin-top: 20px;
+		}
+
+		.mini-feature {
+			background: var(--panel-soft);
+			border: 1px solid var(--border);
+			border-radius: 16px;
+			padding: 16px;
+		}
+
+		.mini-feature h4 {
+			margin: 0 0 8px;
+			font-size: 1rem;
+		}
+
+		.mini-feature p {
+			margin: 0;
+			font-size: 0.95rem;
+		}
+
+		.policy-box {
+			background: rgba(255, 255, 255, 0.82);
+			border: 1px solid var(--border);
+			border-radius: 22px;
+			box-shadow: var(--shadow);
+			padding: 28px;
+		}
+
+		.policy-box h2 {
+			margin-top: 0;
+			margin-bottom: 16px;
+			font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+		}
+
+		.policy-box p,
+		.policy-box li {
+			color: var(--text);
+		}
+
+		.policy-box ul {
+			margin: 12px 0;
+			padding-left: 20px;
+		}
+
+		.footer {
+			margin-top: 40px;
+			padding: 16px 0 52px;
+			color: var(--muted);
+			font-size: 0.92rem;
+		}
+
+		@media (max-width: 860px) {
+
+			.hero,
+			.card-grid,
+			.feature-list {
+				grid-template-columns: 1fr;
+			}
+
+			.nav-links {
+				display: none;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div class="container nav">
+			<div class="brand" aria-label="Developer brand">
+				<span class="brand-mark" aria-hidden="true"></span>
+				<span>アプリだすお</span>
+			</div>
+
+			<nav class="nav-links" aria-label="Main navigation">
+				<a href="#top">Top</a>
+				<a href="#apps">Apps</a>
+				<a href="#privacy-policy">Privacy</a>
+				<a href="https://apuridasuo.hatenablog.com/" target="_blank" rel="noreferrer"
+					class="primary-link">Blog</a>
+			</nav>
+		</div>
+	</header>
+
+	<main id="top">
+		<div class="container">
+			<section class="hero">
+				<div>
+					<h1>日常を少しだけ、楽にする。</h1>
+					<p>
+						アプリだすおは、使いやすさと役立ちを大切にしたアプリ開発を行っています。<br />
+						今後、同じデベロッパーURLで新しいアプリを発表していく前提で、
+						すべてのアプリ紹介を同じサイトで整理できるようにしています。
+					</p>
+
+					<div class="cta-row">
+						<a class="button button-primary" href="#apps">アプリを見る</a>
+						<a class="button button-secondary" href="#privacy-policy">プライバシーポリシー</a>
+						<a class="button button-secondary" href="https://apuridasuo.hatenablog.com/" target="_blank"
+							rel="noreferrer">ブログを見る</a>
+					</div>
+				</div>
+
+				<div class="developer-card" aria-label="Developer profile">
+					<div class="profile">
+						<div class="avatar" aria-hidden="true">A</div>
+						<div>
+							<h2>アプリだすお</h2>
+							<p>App / Productivity / Life</p>
+						</div>
+					</div>
+
+					<ul>
+						<li>シンプルで直感的なアプリ設計</li>
+						<li>日常の小さな不便を減らす開発を目指す</li>
+						<li>今後の新作アプリも同じリンクで案内</li>
+					</ul>
+				</div>
+			</section>
+
+			<section class="section" id="apps">
+				<div class="section-header">
+					<h2>Apps</h2>
+					<p>各アプリの詳細は同じページ内で切り替えます</p>
+				</div>
+
+				<div class="card-grid">
+					<a class="app-card" href="#sharedtodo">
+						<span class="app-tag">App 01</span>
+						<h3>SharedTo-Do</h3>
+						<p>日々のやることをシンプルに管理し、共有しながら進捗を確認できるToDoアプリ。</p>
+					</a>
+
+					<a class="app-card" href="#upcoming-app">
+						<span class="app-tag">App 02</span>
+						<h3>Coming Soon</h3>
+						<p>今後、同じデベロッパーURLで新しいアプリを発表していく予定です。</p>
+					</a>
+				</div>
+
+				<div class="app-detail" id="sharedtodo">
+					<h3>SharedTo-Do（みてみてToDo）</h3>
+					<p>
+						SharedTo-Do は、家族や友人、仕事仲間と共有できるタスク管理アプリです。
+						忘れがちな予定ややることを、わかりやすく整理し、今日の行動に落とし込みやすい設計を目指しています。
+					</p>
+
+					<div class="feature-list">
+						<div class="mini-feature">
+							<h4>シンプル</h4>
+							<p>操作が簡単で、すぐに使い始められます。</p>
+						</div>
+						<div class="mini-feature">
+							<h4>共有</h4>
+							<p>複数人での予定確認やタスク共有に対応します。</p>
+						</div>
+						<div class="mini-feature">
+							<h4>管理</h4>
+							<p>完了予定と進捗を見やすく管理できます。</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="app-detail" id="upcoming-app">
+					<h3>Next App</h3>
+					<p>
+						今後、同じデベロッパーサイトを利用して、新しいアプリの紹介ページをこのページ内に追加していきます。
+						各アプリはページ内リンクで切り替えられるので、運用がシンプルかつ一貫しています。
+					</p>
+				</div>
+			</section>
+
+			<section class="section" id="privacy-policy">
+				<div class="policy-box">
+					<h2>プライバシーポリシー</h2>
+					<p>
+						本サイトおよび関連アプリは、ユーザーの安心と信頼を重視し、個人情報の取り扱いを適切に管理します。
+					</p>
+
+					<p>
+						当社が取得する情報には、アプリの利用状況、設定情報、問い合わせ内容、利用時の匿名化された利用データなどが含まれる場合があります。
+						これらは、サービスの改善、品質向上、およびセキュリティ対策のために利用されます。
+					</p>
+
+					<ul>
+						<li>個人情報は、法令に基づく場合や必要な範囲に限定して扱います</li>
+						<li>第三者への販売や不必要な共有は行いません</li>
+						<li>技術的な不具合やセキュリティ対応の必要がある場合に限り、必要最小限の情報を扱うことがあります</li>
+					</ul>
+
+					<p>
+						本ポリシーは、必要に応じて更新する場合があります。変更があった場合には本ページで案内します。
+					</p>
+
+					<p>
+						お問い合わせ：<a href="mailto:support@sharedtodo.app">support@sharedtodo.app</a>
+					</p>
+				</div>
+			</section>
+		</div>
+	</main>
+
+	<footer class="container footer">
+		© 2026 アプリだすお
+	</footer>
+</body>
+
+</html>
